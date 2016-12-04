@@ -27,14 +27,21 @@ CircleOfFifth = ("C", "G", "D", "A", "E", "B", "F#", "C#", "Cb", "Gb", "Db", "Ab
 ## CircleOfFifth = ("C", "G", "D", "A", "E", "B", "F#", "Gb", "Db","Ab",  "Eb", "Bb", "F")
 
 # ----------------------------------------------------------------------------
-# MajorScale
+# Scale
 # ----------------------------------------------------------------------------
-def MajorScale(ChordIndex, sign):
+def Scale(ChordIndex, sign, ScaleType):
 
 	clist = []
 	nlist = []
 
-	for ChordType in MajorList:
+	if (ScaleType == "Major"):
+		ScaleList = MajorList
+	if (ScaleType == "HarmonicMinor"):
+		ScaleList = MajorList
+	if (ScaleType == "MelodicMinor"):
+		ScaleList = MajorList
+
+	for ChordType in ScaleList:
 		
 		chordBase = ChordList[(ChordType[1] + ChordIndex) % len(ChordList)]
 		if ("/" in chordBase):
@@ -46,24 +53,12 @@ def MajorScale(ChordIndex, sign):
 		nlist.append(chordBase)
 		clist.append(chordBase + ChordType[0])
 
-	print("Key of %s Major (%s)\n" % (nlist[0], ' '.join(nlist)))
-	### print(nlist, "\n")
+	print("Key of %s %s (%s)\n" % (nlist[0], ScaleType, ' '.join(nlist)))
 	print("I      II     III    IV     V      VI     VII")
-	print(clist)
+	for c in clist:
+		print("%-7s" % c, end="")
 	print("\n")
 
-# ----------------------------------------------------------------------------
-#
-# ----------------------------------------------------------------------------
-def harmonic_minor_scale(key):
-	print("Key of X (harmonic) minor (.......)")
-
-
-# ----------------------------------------------------------------------------
-#
-# ----------------------------------------------------------------------------
-def melodic_minor_scale(key):
-	print("Key of X (melodic) minor (.......)")
 
 # ----------------------------------------------------------------------------
 # check_key()
@@ -140,10 +135,10 @@ def main():
 	sign = getSignOfKey(key)
 	## print("Key %s %s " % (key, sign))
 	
-	MajorScale(index, sign)
+	Scale(index, sign, "Major")
+	Scale(index, sign, "HarmonicMinor")
+	Scale(index, sign, "MelodicMinor")
 
-	harmonic_minor_scale(key)
-	melodic_minor_scale(key)
 
 
 if __name__ == '__main__':
