@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# vim: number tabstop=4 noexpandtab shiftwidth=4 softtabstop=4 autoindent
+# vim: number tabstop=4 expandtab shiftwidth=4 softtabstop=4 autoindent textwidth=79
 
 """
 TipSheet.py – Tool to show the basic chords and scales
@@ -23,41 +23,51 @@ import argparse
 
 ChordList = ("C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B" )
 MajorList = (("maj7",0), ("m7",2), ("m7",4) , ("maj7",5), ("7",7), ("m7",9), ("m7b5",11))
+HarmonicMinorList = (("mmaj7",0), ("m7",2), ("m7",4) , ("maj7",5), ("7",7), ("m7",9), ("m7b5",11))
+MelodicMinorList = (("maj7",0), ("m7",2), ("m7",4) , ("maj7",5), ("7",7), ("m7",9), ("m7b5",11))
+
 CircleOfFifth = ("C", "G", "D", "A", "E", "B", "F#", "C#", "Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F")
-## CircleOfFifth = ("C", "G", "D", "A", "E", "B", "F#", "Gb", "Db","Ab",  "Eb", "Bb", "F")
 
 # ----------------------------------------------------------------------------
 # Scale
 # ----------------------------------------------------------------------------
 def Scale(ChordIndex, sign, ScaleType):
+    """ print the scale beginning from the root note form a scale
 
-	clist = []
-	nlist = []
+        
+        Different type of scaleis can be used. 
+        ChordIndex:     "root note" index of the scale
+        sign:           sharp or flat scale; C-Major ist nothing
+        ScaleType:      Major, HarmonicMinor etc.
+    """
 
-	if (ScaleType == "Major"):
-		ScaleList = MajorList
-	if (ScaleType == "HarmonicMinor"):
-		ScaleList = MajorList
-	if (ScaleType == "MelodicMinor"):
-		ScaleList = MajorList
+    clist = []
+    nlist = []
 
-	for ChordType in ScaleList:
-		
-		chordBase = ChordList[(ChordType[1] + ChordIndex) % len(ChordList)]
-		if ("/" in chordBase):
-			c = (chordBase.split("/"))
-			if (sign[0] == "#"):
-				chordBase = c[0]
-			else:
-				chordBase = c[1]
-		nlist.append(chordBase)
-		clist.append(chordBase + ChordType[0])
+    if (ScaleType == "Major"):
+        ScaleList = MajorList
+    if (ScaleType == "HarmonicMinor"):
+        ScaleList = HarmonicMinorList
+    if (ScaleType == "MelodicMinor"):
+        ScaleList = MelodicMinorList
 
-	print("Key of %s %s (%s)\n" % (nlist[0], ScaleType, ' '.join(nlist)))
-	print("I      II     III    IV     V      VI     VII")
-	for c in clist:
-		print("%-7s" % c, end="")
-	print("\n")
+    for ChordType in ScaleList:
+        
+        chordBase = ChordList[(ChordType[1] + ChordIndex) % len(ChordList)]
+        if ("/" in chordBase):
+            c = (chordBase.split("/"))
+            if (sign[0] == "#"):
+                chordBase = c[0]
+            else:
+                chordBase = c[1]
+        nlist.append(chordBase)
+        clist.append(chordBase + ChordType[0])
+
+    print("Key of %s %s (%s)\n" % (nlist[0], ScaleType, ' '.join(nlist)))
+    print("I      II     III    IV     V      VI     VII")
+    for c in clist:
+        print("%-7s" % c, end="")
+    print("\n\n")
 
 
 # ----------------------------------------------------------------------------
@@ -67,81 +77,81 @@ def Scale(ChordIndex, sign, ScaleType):
 # Gibt den Index fuer die Tonart-Liste zurueck (C=0, C#/Db=1, ...)
 # ----------------------------------------------------------------------------
 def check_key(key):
-	
-	index = 0
+    
+    index = 0
 
-	# go through entire ChordList and look for match
-	for chord in ChordList:
-		if (len(chord) == 1):
-			if (chord == key):
-				return index 
-		else:
-			t = (chord.split("/"))
-			if (t[0] == key or t[1] == key):
-				return index
+    # go through entire ChordList and look for match
+    for chord in ChordList:
+        if (len(chord) == 1):
+            if (chord == key):
+                return index 
+        else:
+            t = (chord.split("/"))
+            if (t[0] == key or t[1] == key):
+                return index
 
-		index = index + 1
+        index = index + 1
 
-	return -1
+    return -1
 
 # ----------------------------------------------------------------------------
 # getSignOfKey()
 # ----------------------------------------------------------------------------
 def getSignOfKey(key):
 
-	returnList = []
+    returnList = []
 
-	for index, k in enumerate(CircleOfFifth):
+    for index, k in enumerate(CircleOfFifth):
 
-		if (key == k):
-			if index == 0:
-				sign = ""
-				nsign = index
-			if index >0 and index <= 6:
-				sign = "#"
-				nsign = index
-			if index > 6:
-				countFlat = len(CircleOfFifth) - index
-				sign = "b"
-				nsign = countFlat
+        if (key == k):
+            if index == 0:
+                sign = ""
+                nsign = index
+            if index >0 and index <= 6:
+                sign = "#"
+                nsign = index
+            if index > 6:
+                countFlat = len(CircleOfFifth) - index
+                sign = "b"
+                nsign = countFlat
 
-			returnList.append(sign)
-			returnList.append(nsign)
-			return returnList
+            returnList.append(sign)
+            returnList.append(nsign)
+            return returnList
 
 # ----------------------------------------------------------------------------
 # main()
 # ----------------------------------------------------------------------------
 def main():
 
-	print("---------------------------------------------")
-	print("      HARMONIC ANALYSIS TIP SHEET")
-	print("---------------------------------------------")
+    print("---------------------------------------------")
+    print("      HARMONIC ANALYSIS TIP SHEET")
+    print("---------------------------------------------")
 
-	parser = argparse.ArgumentParser(description='Lorem Ipsum')
-	parser.add_argument('--verbose', '-v', action='store_true', help='verbose flag')
-	parser.add_argument('--key', '-k', required=True, help='key to analyse')
+    parser = argparse.ArgumentParser(description='Lorem Ipsum')
+    parser.add_argument('--verbose', '-v', action='store_true', help='verbose flag')
+    parser.add_argument('--key', '-k', required=True, help='key to analyse')
 
-	args = parser.parse_args()
+    args = parser.parse_args()
 
-	key = args.key
+    key = args.key
 
-	index = check_key(key)
-	if (index < 0):
-		print("%s is not a regular key" % key)
-		exit()
+    index = check_key(key)
+    if (index < 0):
+        print("%s is not a regular key" % key)
+        exit()
 
 
-	sign = getSignOfKey(key)
-	## print("Key %s %s " % (key, sign))
-	
-	Scale(index, sign, "Major")
-	Scale(index, sign, "HarmonicMinor")
-	Scale(index, sign, "MelodicMinor")
+    sign = getSignOfKey(key)
+    ## print("Key %s %s " % (key, sign))
+    
+    Scale(index, sign, "Major")
+    Scale(index, sign, "HarmonicMinor")
+    Scale(index, sign, "MelodicMinor")
 
 
 
 if __name__ == '__main__':
 
-	main()
+    main()
 
