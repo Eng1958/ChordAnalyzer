@@ -23,8 +23,10 @@ import argparse
 
 ChordList = ("C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B" )
 MajorList = (("maj7",0), ("m7",2), ("m7",4) , ("maj7",5), ("7",7), ("m7",9), ("m7b5",11))
-HarmonicMinorList = (("mmaj7",0), ("m7",2), ("m7",4) , ("maj7",5), ("7",7), ("m7",9), ("m7b5",11))
-MelodicMinorList = (("maj7",0), ("m7",2), ("m7",4) , ("maj7",5), ("7",7), ("m7",9), ("m7b5",11))
+HarmonicMinorList = (("mmaj7",0), ("m7b5",2), ("maj7#5",3) , ("m7",5), ("7(b9)",7),
+("maj7",8), ("dim7",11))
+MelodicMinorList = (("mmaj7",0), ("m7",2), ("maj7#5",3) , ("7",5), ("7",7),
+("m7b5",8), ("7b5",11))
 
 CircleOfFifth = ("C", "G", "D", "A", "E", "B", "F#", "C#", "Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F")
 
@@ -47,16 +49,18 @@ def Scale(ChordIndex, sign, ScaleType):
     if (ScaleType == "Major"):
         ScaleList = MajorList
     if (ScaleType == "HarmonicMinor"):
+        ChordIndex = ChordIndex + 9
         ScaleList = HarmonicMinorList
     if (ScaleType == "MelodicMinor"):
         ScaleList = MelodicMinorList
+        ChordIndex = ChordIndex + 9
 
     for ChordType in ScaleList:
         
         chordBase = ChordList[(ChordType[1] + ChordIndex) % len(ChordList)]
         if ("/" in chordBase):
             c = (chordBase.split("/"))
-            if (sign[0] == "#"):
+            if (sign[0] == "#" or sign[0] == ""):
                 chordBase = c[0]
             else:
                 chordBase = c[1]
@@ -67,21 +71,21 @@ def Scale(ChordIndex, sign, ScaleType):
     print(str)
     print("".ljust(len(str), '-'))
 
-    # print("I      II     III    IV     V      VI     VII")
-    str = "I      II     III    IV     V      VI     VII"
+    str = "I        II       III      IV       V        VI       VII"
     print(str)
 
     for c in clist:
-        print("%-7s" % c, end="")
+        print("%-9s" % c, end="")
 
     print("\n\n")
 
     if (ScaleType == "Major"):
-        MajorScale()
+        MajorScale(clist)
     if (ScaleType == "HarmonicMinor"):
-        HarmonicMinorScale()
+        print(clist)
+        HarmonicMinorScale(clist)
     if (ScaleType == "MelodicMinor"):
-        MelodicMinorScale()
+        MelodicMinorScale(clist)
 
     print("\n\n")
 
@@ -138,19 +142,27 @@ def getSignOfKey(key):
             returnList.append(sign)
             returnList.append(nsign)
             return returnList
-def MajorScale():
-
-    print("IIm-V-I: %s" % ("Dm7 G7 Cmaj7"))
-
-def HarmonicMinorScale():
 
 
-    print("IIm-V-I: %s" % ("Dm7b5 G7b9 Cm7"))
+def MajorScale(ChordList):
 
-def MelodicMinorScale():
+    print("%s minor is the relative minor of %s major." % (ChordList[5],
+    ChordList[0]))
+
+    print("II-V-I: %s %s %s" % (ChordList[1], ChordList[4], ChordList[0]))
 
 
-    print("IIm-V-I: %s" % ("Dm7??? G7??? Cj7?????"))
+def HarmonicMinorScale(Chordlist):
+
+    print(ChordList)
+    print("II-V-I: %s %s %s" % (ChordList[1], ChordList[4], ChordList[0]))
+
+
+def MelodicMinorScale(ChordList):
+
+    print(ChordList)
+    print("II-V-I: %s %s %s" % (ChordList[1], ChordList[4], ChordList[0]))
+
 
 # ----------------------------------------------------------------------------
 # main()
