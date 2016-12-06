@@ -63,20 +63,38 @@ def Scale(ChordIndex, sign, ScaleType):
         nlist.append(chordBase)
         clist.append(chordBase + ChordType[0])
 
-    print("Key of %s %s (%s)\n" % (nlist[0], ScaleType, ' '.join(nlist)))
-    print("I      II     III    IV     V      VI     VII")
+    str = "Key of %s %s (%s)" % (nlist[0], ScaleType, ' '.join(nlist))
+    print(str)
+    print("".ljust(len(str), '-'))
+
+    # print("I      II     III    IV     V      VI     VII")
+    str = "I      II     III    IV     V      VI     VII"
+    print(str)
+
     for c in clist:
         print("%-7s" % c, end="")
+
     print("\n\n")
 
+    if (ScaleType == "Major"):
+        MajorScale()
+    if (ScaleType == "HarmonicMinor"):
+        HarmonicMinorScale()
+    if (ScaleType == "MelodicMinor"):
+        MelodicMinorScale()
+
+    print("\n\n")
 
 # ----------------------------------------------------------------------------
 # check_key()
 #
-# Ueberprueft, ob der uebergebene "key" eine gueltige Tonart ist.
-# Gibt den Index fuer die Tonart-Liste zurueck (C=0, C#/Db=1, ...)
 # ----------------------------------------------------------------------------
 def check_key(key):
+    """
+        Ueberprueft, ob der uebergebene "key" eine gueltige Tonart ist.
+
+        Gibt den Index fuer die Tonart-Liste zurueck (C=0, C#/Db=1, ...)
+    """
     
     index = 0
 
@@ -118,19 +136,33 @@ def getSignOfKey(key):
             returnList.append(sign)
             returnList.append(nsign)
             return returnList
+def MajorScale():
+
+    print("IIm-V-I: %s" % ("Dm7 G7 Cmaj7"))
+
+def HarmonicMinorScale():
+
+
+    print("IIm-V-I: %s" % ("Dm7b5 G7b9 Cm7"))
+
+def MelodicMinorScale():
+
+
+    print("IIm-V-I: %s" % ("Dm7??? G7??? Cj7?????"))
 
 # ----------------------------------------------------------------------------
 # main()
 # ----------------------------------------------------------------------------
 def main():
 
-    print("---------------------------------------------")
-    print("      HARMONIC ANALYSIS TIP SHEET")
-    print("---------------------------------------------")
+    print("=============================================")
+    print("=     HARMONIC ANALYSIS TIP SHEET           =")
+    print("=============================================\n")
 
     parser = argparse.ArgumentParser(description='Lorem Ipsum')
     parser.add_argument('--verbose', '-v', action='store_true', help='verbose flag')
     parser.add_argument('--key', '-k', required=True, help='key to analyse')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0')
 
     args = parser.parse_args()
 
