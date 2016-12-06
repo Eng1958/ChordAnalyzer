@@ -2,7 +2,7 @@
 # vim: number tabstop=4 expandtab shiftwidth=4 softtabstop=4 autoindent textwidth=79
 
 """
-TipSheet.py – Tool to show the basic chords and scales
+TipSheet.py is a ool to show the basic chords and scales
 to analyse jazz pieces
 Copyright (C) 2016  Dieter Engemann <dieter@engemann.me>
 
@@ -85,17 +85,19 @@ def Scale(ChordIndex, sign, ScaleType):
 
     print("\n\n")
 
-# ----------------------------------------------------------------------------
-# check_key()
-#
-# ----------------------------------------------------------------------------
+
 def check_key(key):
     """
         Ueberprueft, ob der uebergebene "key" eine gueltige Tonart ist.
 
         Gibt den Index fuer die Tonart-Liste zurueck (C=0, C#/Db=1, ...)
+
+        Pure implementation of quick sort al10yygorithm in Python
+        :param collection: some mutable ordered collection with heterogeneous
+        comparable items inside
+        :return: the same collection ordered by ascending
     """
-    
+
     index = 0
 
     # go through entire ChordList and look for match
