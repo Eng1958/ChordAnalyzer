@@ -21,10 +21,10 @@ def Scale(ChordIndex, sign, ScaleType):
     """ print the scale beginning from the root note form a scale
 
         
-        Different type of scaleis can be used. 
-        ChordIndex:     "root note" index of the scale
-        sign:           sharp or flat scale; C-Major ist nothing
-        ScaleType:      Major, HarmonicMinor etc.
+        Different type of scales can be used. 
+        :param ChordIndex:     "root note" index of the scale
+        :param sign:           sharp or flat scale; C-Major ist nothing
+        :param ScaleType:      Type of scale: Major, HarmonicMinor etc.
     """
 
     clist = []
@@ -62,8 +62,7 @@ def Scale(ChordIndex, sign, ScaleType):
     print(str)
 
     for c in clist:
- #       print("%-9s" % c, end="")
-        print("Test")
+        print("%-9s" % c, end="")
 
     print("\n\n")
 
@@ -86,11 +85,8 @@ def check_key(key):
         Ueberprueft, ob der uebergebene "key" eine gueltige Tonart ist.
 
         Gibt den Index fuer die Tonart-Liste zurueck (C=0, C#/Db=1, ...)
-
-        Pure implementation of quick sort al10yygorithm in Python
-        :param collection: some mutable ordered collection with heterogeneous
-        comparable items inside
-        :return: the same collection ordered by ascending
+        :param key: 
+        :return: index of key
     """
 
     index = 0
@@ -168,26 +164,24 @@ def MelodicMinorScale(ChordList):
 
 def main():
 
-    print("=============================================")
-    print("=     HARMONIC ANALYSIS TIP SHEET           =")
-    print("=============================================\n")
-
     parser = argparse.ArgumentParser(description='Lorem Ipsum')
     parser.add_argument('--verbose', '-v', action='store_true', help='verbose flag')
     parser.add_argument('--key', '-k', required=True, help='key to analyse')
     parser.add_argument('--version', action='version', version='%(prog)s 1.0')
 
+    print("=============================================")
+    print("=     HARMONIC ANALYSIS TIP SHEET           =")
+    print("=============================================\n")
+
     args = parser.parse_args()
 
-    key = args.key
-
-    index = check_key(key)
+    index = check_key(args.key)
     if (index < 0):
-        print("%s is not a regular key" % key)
+        print("%s is not a regular key" % args.key)
         exit()
 
 
-    sign = getSignOfKey(key)
+    sign = getSignOfKey(args.key)
     
     Scale(index, sign, "Major")
     Scale(index, sign, "NaturalMinor")
