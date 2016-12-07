@@ -1,38 +1,22 @@
 #!/usr/bin/env python3
-# vim: number tabstop=4 expandtab shiftwidth=4 softtabstop=4 autoindent textwidth=79
+# vim: number tabstop=4 expandtab shiftwidth=4 softtabstop=4 autoindent textwidth=100
 
 """
-TipSheet.py is a ool to show the basic chords and scales
+ChordAnalzyer.py is a ool to show the basic chords and scales
 to analyse jazz pieces
 Copyright (C) 2016  Dieter Engemann <dieter@engemann.me>
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import argparse
 
 ChordList = ("C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B" )
-MajorList = (("maj7",0), ("m7",2), ("m7",4) , ("maj7",5), ("7",7), ("m7",9), ("m7b5",11))
-HarmonicMinorList = (("mmaj7",0), ("m7b5",2), ("maj7#5",3) , ("m7",5), ("7(b9)",7),
-("maj7",8), ("dim7",11))
-MelodicMinorList = (("mmaj7",0), ("m7",2), ("maj7#5",3) , ("7",5), ("7",7),
-("m7b5",8), ("7b5",11))
-
 CircleOfFifth = ("C", "G", "D", "A", "E", "B", "F#", "C#", "Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F")
 
-# ----------------------------------------------------------------------------
-# Scale
-# ----------------------------------------------------------------------------
+MajorList = (("maj7",0), ("m7",2), ("m7",4) , ("maj7",5), ("7",7), ("m7",9), ("m7b5",11))
+HarmonicMinorList = (("mmaj7",0), ("m7b5",2), ("maj7#5",3) , ("m7",5), ("7(b9)",7), ("maj7",8), ("dim7",11))
+MelodicMinorList = (("mmaj7",0), ("m7",2), ("maj7#5",3) , ("7",5), ("7",7), ("m7b5",8), ("7b5",11))
+
+
 def Scale(ChordIndex, sign, ScaleType):
     """ print the scale beginning from the root note form a scale
 
@@ -47,6 +31,9 @@ def Scale(ChordIndex, sign, ScaleType):
     nlist = []
 
     if (ScaleType == "Major"):
+        ScaleList = MajorList
+    if (ScaleType == "NaturalMinor"):
+        ChordIndex = ChordIndex + 9
         ScaleList = MajorList
     if (ScaleType == "HarmonicMinor"):
         ChordIndex = ChordIndex + 9
@@ -75,12 +62,16 @@ def Scale(ChordIndex, sign, ScaleType):
     print(str)
 
     for c in clist:
-        print("%-9s" % c, end="")
+ #       print("%-9s" % c, end="")
+        print("Test")
 
     print("\n\n")
 
     if (ScaleType == "Major"):
         MajorScale(clist)
+    if (ScaleType == "NaturalMinor"):
+        print(clist)
+        HarmonicMinorScale(clist)
     if (ScaleType == "HarmonicMinor"):
         print(clist)
         HarmonicMinorScale(clist)
@@ -118,10 +109,15 @@ def check_key(key):
 
     return -1
 
-# ----------------------------------------------------------------------------
-# getSignOfKey()
-# ----------------------------------------------------------------------------
 def getSignOfKey(key):
+    """
+    Construct a new 'Foo' object.
+
+    :param name: The name of foo
+    :param age: The ageof foo
+    :return: returns nothing
+
+    """
 
     returnList = []
 
@@ -152,6 +148,12 @@ def MajorScale(ChordList):
     print("II-V-I: %s %s %s" % (ChordList[1], ChordList[4], ChordList[0]))
 
 
+def NaturalMinorScale(Chordlist):
+
+    print(ChordList)
+    print("II-V-I: %s %s %s" % (ChordList[1], ChordList[4], ChordList[0]))
+
+
 def HarmonicMinorScale(Chordlist):
 
     print(ChordList)
@@ -164,9 +166,6 @@ def MelodicMinorScale(ChordList):
     print("II-V-I: %s %s %s" % (ChordList[1], ChordList[4], ChordList[0]))
 
 
-# ----------------------------------------------------------------------------
-# main()
-# ----------------------------------------------------------------------------
 def main():
 
     print("=============================================")
@@ -189,9 +188,9 @@ def main():
 
 
     sign = getSignOfKey(key)
-    ## print("Key %s %s " % (key, sign))
     
     Scale(index, sign, "Major")
+    Scale(index, sign, "NaturalMinor")
     Scale(index, sign, "HarmonicMinor")
     Scale(index, sign, "MelodicMinor")
 
