@@ -8,16 +8,14 @@ Copyright (C) 2016  Dieter Engemann <dieter@engemann.me>
 
 """
 import argparse
-##from termcolor import colored
-import termcolor
-
 
 ChordList = ("C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B" )
 CircleOfFifth = ("C", "G", "D", "A", "E", "B", "F#", "C#", "Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F")
 
 MajorList = (("maj7",0), ("m7",2), ("m7",4) , ("maj7",5), ("7",7), ("m7",9), ("m7b5",11))
-HarmonicMinorList = (("mmaj7",0), ("m7b5",2), ("maj7#5",3) , ("m7",5), ("7(b9)",7), ("maj7",8), ("dim7",11))
-MelodicMinorList = (("mmaj7",0), ("m7",2), ("maj7#5",3) , ("7",5), ("7",7), ("m7b5",8), ("7b5",11))
+NaturalMinorList = (("m7",0), ("m7b5",2), ("maj7",3) , ("m7",5), ("m7",7), ("maj7",8), ("7",10))
+HarmonicMinorList = (("m(maj7)",0), ("m7b5",2), ("maj7#5",3) , ("m7",5), ("7(b9)",7), ("maj7",8), ("dim7",11))
+MelodicMinorList = (("m(maj7)",0), ("m7",2), ("maj7#5",3) , ("7",5), ("7",7), ("m7b5",9), ("m7b5",11))
 
 
 def Scale(ChordIndex, sign, ScaleType):
@@ -37,7 +35,7 @@ def Scale(ChordIndex, sign, ScaleType):
         ScaleList = MajorList
     if (ScaleType == "NaturalMinor"):
         ChordIndex = ChordIndex + 9
-        ScaleList = MajorList
+        ScaleList = NaturalMinorList
     if (ScaleType == "HarmonicMinor"):
         ChordIndex = ChordIndex + 9
         ScaleList = HarmonicMinorList
