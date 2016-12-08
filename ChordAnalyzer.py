@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # vim: number tabstop=4 expandtab shiftwidth=4 softtabstop=4 autoindent textwidth=100
+# fileformat=unix 
 
 """
 ChordAnalzyer.py is a ool to show the basic chords and scales
