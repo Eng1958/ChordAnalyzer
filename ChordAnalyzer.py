@@ -8,6 +8,9 @@ Copyright (C) 2016  Dieter Engemann <dieter@engemann.me>
 
 """
 import argparse
+##from termcolor import colored
+import termcolor
+
 
 ChordList = ("C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B" )
 CircleOfFifth = ("C", "G", "D", "A", "E", "B", "F#", "C#", "Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F")
@@ -69,10 +72,8 @@ def Scale(ChordIndex, sign, ScaleType):
     if (ScaleType == "Major"):
         MajorScale(clist)
     if (ScaleType == "NaturalMinor"):
-        print(clist)
         HarmonicMinorScale(clist)
     if (ScaleType == "HarmonicMinor"):
-        print(clist)
         HarmonicMinorScale(clist)
     if (ScaleType == "MelodicMinor"):
         MelodicMinorScale(clist)
@@ -136,30 +137,27 @@ def getSignOfKey(key):
             return returnList
 
 
-def MajorScale(ChordList):
+def MajorScale(chordList):
 
-    print("%s minor is the relative minor of %s major." % (ChordList[5],
-    ChordList[0]))
+    print("%s minor is the relative minor of %s major." % (chordList[5],
+    chordList[0]))
 
-    print("II-V-I: %s %s %s" % (ChordList[1], ChordList[4], ChordList[0]))
-
-
-def NaturalMinorScale(Chordlist):
-
-    print(ChordList)
-    print("II-V-I: %s %s %s" % (ChordList[1], ChordList[4], ChordList[0]))
+    print("II-V-I: %s %s %s" % (chordList[1], chordList[4], chordList[0]))
 
 
-def HarmonicMinorScale(Chordlist):
+def NaturalMinorScale(chordlist):
 
-    print(ChordList)
-    print("II-V-I: %s %s %s" % (ChordList[1], ChordList[4], ChordList[0]))
+    print("II-V-I: %s %s %s" % (chordList[1], chordList[4], chordList[0]))
 
 
-def MelodicMinorScale(ChordList):
+def HarmonicMinorScale(chordList):
 
-    print(ChordList)
-    print("II-V-I: %s %s %s" % (ChordList[1], ChordList[4], ChordList[0]))
+    print("II-V-I: %s %s %s" % (chordList[1], chordList[4], chordList[0]))
+
+
+def MelodicMinorScale(chordList):
+
+    print("II-V-I: %s %s %s" % (chordList[1], chordList[4], chordList[0]))
 
 
 def main():
