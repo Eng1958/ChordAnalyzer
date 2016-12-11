@@ -3,11 +3,16 @@
 # fileformat=unix 
 
 """
-ChordAnalzyer.py is a ool to show the basic chords and scales
-to analyse jazz pieces
-Copyright (C) 2016  Dieter Engemann <dieter@engemann.me>
+
+*** Description ***
+
+    ChordAnalzyer.py is a ool to show the basic chords and scales
+    to analyse jazz pieces
+
+    Copyright (C) 2016  Dieter Engemann <dieter@engemann.me>
 
 """
+
 import argparse
 
 ChordList = ("C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B" )
@@ -141,17 +146,23 @@ def MajorScale(chordList):
     print("%s minor is the relative minor of %s major." % (chordList[5],
     chordList[0]))
 
-    print("II-V-I: %s %s %s" % (chordList[1], chordList[4], chordList[0]))
+    print("II       V        I")
+    print("%-9s%-9s%-9s\n" % (chordList[1], chordList[4], chordList[0]))
 
+    triSub = chordList[1][0] + "b7"
+    print("V        bII   Tritonus-Substituion")
+    print("%-9s%-9s\n" % (chordList[4], triSub))
 
 def NaturalMinorScale(chordlist):
 
-    print("II-V-I: %s %s %s" % (chordList[1], chordList[4], chordList[0]))
+    print("II       V        I")
+    print("%s %s %s" % (chordList[1], chordList[4], chordList[0]))
 
 
 def HarmonicMinorScale(chordList):
 
-    print("II-V-I: %s %s %s" % (chordList[1], chordList[4], chordList[0]))
+    print("II       V        I")
+    print("%s %s %s" % (chordList[1], chordList[4], chordList[0]))
 
 
 def MelodicMinorScale(chordList):
