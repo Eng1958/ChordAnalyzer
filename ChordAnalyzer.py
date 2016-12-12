@@ -11,12 +11,16 @@
 
     Copyright (C) 2016  Dieter Engemann <dieter@engemann.me>
 
+    12.12.2016  Version 1.1     Zwischen- und Doppeldominante
+
 """
 
+
 import argparse
+import config
+from Scales import MajorScale
 
 ChordList = ("C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B" )
-CircleOfFifth = ("C", "G", "D", "A", "E", "B", "F#", "C#", "Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F")
 
 MajorList = (("maj7",0), ("m7",2), ("m7",4) , ("maj7",5), ("7",7), ("m7",9), ("m7b5",11))
 NaturalMinorList = (("m7",0), ("m7b5",2), ("maj7",3) , ("m7",5), ("m7",7), ("maj7",8), ("7",10))
@@ -122,7 +126,7 @@ def getSignOfKey(key):
 
     returnList = []
 
-    for index, k in enumerate(CircleOfFifth):
+    for index, k in enumerate(config.CircleOfFifth):
 
         if (key == k):
             if index == 0:
@@ -132,7 +136,7 @@ def getSignOfKey(key):
                 sign = "#"
                 nsign = index
             if index > 6:
-                countFlat = len(CircleOfFifth) - index
+                countFlat = len(config.CircleOfFifth) - index
                 sign = "b"
                 nsign = countFlat
 
@@ -141,17 +145,7 @@ def getSignOfKey(key):
             return returnList
 
 
-def MajorScale(chordList):
 
-    print("%s minor is the relative minor of %s major." % (chordList[5],
-    chordList[0]))
-
-    print("II       V        I")
-    print("%-9s%-9s%-9s\n" % (chordList[1], chordList[4], chordList[0]))
-
-    triSub = chordList[1][0] + "b7"
-    print("V        bII   Tritonus-Substituion")
-    print("%-9s%-9s\n" % (chordList[4], triSub))
 
 def NaturalMinorScale(chordlist):
 
@@ -175,7 +169,7 @@ def main():
     parser = argparse.ArgumentParser(description='Lorem Ipsum')
     parser.add_argument('--verbose', '-v', action='store_true', help='verbose flag')
     parser.add_argument('--key', '-k', required=True, help='key to analyse')
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.1')
 
     print("=============================================")
     print("=     HARMONIC ANALYSIS TIP SHEET           =")
